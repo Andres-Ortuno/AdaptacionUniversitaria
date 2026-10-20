@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AdaptacionUniversitaria.Api/AdaptacionUniversitaria.Api.csproj" />
+  <Project Path="AdaptacionUniversitaria.Core/AdaptacionUniversitaria.Core.csproj" />
+  <Project Path="AdaptacionUniversitaria.Infrastructure/AdaptacionUniversitaria.Infrastructure.csproj" />
+  <Project Path="AdaptacionUniversitaria.Services/AdaptacionUniversitaria.Services.csproj" Id="6257368d-f400-4fa3-9576-e0fe8f8f6bf8" />
+</Solution>
