@@ -47,10 +47,8 @@ AdaptacionUniversitaria
 ```
 
 ## Requisitos
-
-- [.NET SDK](https://dotnet.microsoft.com/download) (la versión que usa el proyecto: **[COMPLETAR]**)
 - MySQL 8.0 o superior (el script usa restricciones `CHECK`)
-- Visual Studio 2022 o Visual Studio Code
+- Visual Studio 2026 o Visual Studio Code
 - Postman (opcional, para probar la API)
 
 ## Instalación
