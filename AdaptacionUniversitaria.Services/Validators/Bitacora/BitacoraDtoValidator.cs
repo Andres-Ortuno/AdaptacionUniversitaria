@@ -10,41 +10,33 @@ namespace AdaptacionUniversitaria.Services.Validators.Bitacora
     {
         public BitacoraDtoValidator()
         {
-            // Para actualización, el ID es obligatorio
-            RuleFor(x => x.Id)
-                .GreaterThan(0).WithMessage("El ID del post es obligatorio y debe ser mayor que cero.");
-
-            // Validación para UserId
             RuleFor(x => x.EstudianteId)
-                .GreaterThan(0).WithMessage("El ID de usuario es obligatorio y debe ser mayor que cero.")
-                .NotEmpty().WithMessage("El ID de usuario no puede estar vacío.");
+                .GreaterThan(0).WithMessage("El ID del estudiante es obligatorio y debe ser mayor que cero.");
 
-            // Validación para Date
             RuleFor(x => x.Fecha)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("La fecha es obligatoria.")
-                .Must(BeAValidDate).WithMessage("La fecha debe tener un formato válido (dd-MM-yyyy o similar).");
-            RuleFor(x => x.CreadoEn)
-                .NotEmpty().WithMessage("La fecha es obligatoria.")
-                .Must(BeAValidDate).WithMessage("La fecha debe tener un formato válido (dd-MM-yyyy o similar).");
+                .Must(BeAValidDate).WithMessage("La fecha debe tener un formato válido (dd-MM-yyyy).")
+                .Must(NotBeInTheFuture).WithMessage("La fecha no puede ser posterior a hoy.");
 
-            // Validación para Description
+            RuleFor(x => x.EstadoAnimo)
+                .InclusiveBetween((sbyte)1, (sbyte)5)
+                .WithMessage("El estado de ánimo debe estar entre 1 (muy bajo) y 5 (muy bueno).");
+
+            RuleFor(x => x.Sintomas)
+                .MaximumLength(255).WithMessage("Los síntomas no pueden exceder los 255 caracteres.");
+
             RuleFor(x => x.Comentario)
-                .NotEmpty().WithMessage("La descripción es obligatoria.")
-                .MinimumLength(5).WithMessage("La descripción debe tener al menos 5 caracteres.")
-                .MaximumLength(500).WithMessage("La descripción no puede exceder los 500 caracteres.");
+                .MaximumLength(500).WithMessage("El comentario no puede exceder los 500 caracteres.");
 
-            // Falta validacion para las demás y corregir gramatica (se los encargo en esta y las otras dos)
+            RuleFor(x => x.CreadoEn)
+                .Must(BeAValidDate).WithMessage("La fecha de creación debe tener un formato válido (dd-MM-yyyy).")
+                .When(x => !string.IsNullOrWhiteSpace(x.CreadoEn));
         }
 
-        private bool BeAValidDate(string date) => DateTime.TryParse(date, out _);
+        private static bool BeAValidDate(string? date) => DateTime.TryParse(date, out _);
 
-        private bool BeAValidUrl(string? url)
-        {
-            if (string.IsNullOrEmpty(url))
-                return true;
-
-            return Uri.TryCreate(url, UriKind.Absolute, out var uriResult)
-                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-        }
+        private static bool NotBeInTheFuture(string? date) =>
+            DateTime.TryParse(date, out var parsed) && parsed.Date <= DateTime.Today;
     }
 }
