@@ -25,7 +25,7 @@ Proyecto de la materia Tecnologías Web, Carrera de Ingeniería de Sistemas, Uni
 
 Casos de uso: CU-01 Consultar historial de bitácoras, CU-02 Registrar bitácora emocional, CU-03 Solicitar cita de apoyo, CU-04 Aprobar cita, CU-05 Rechazar cita, CU-06 Editar bitácora del día, CU-07 Cancelar cita pendiente, CU-08 Gestionar usuarios.
 
-El detalle completo (reglas de negocio, modelo de datos y endpoints) está en la documentación del proyecto: **[COMPLETAR: enlace al documento]**.
+El detalle completo (reglas de negocio, modelo de datos y endpoints) está en la documentación del proyecto: https://docs.google.com/document/d/1QNh1Fh-XJgQ1fktcfh_wdfwKTt7iPwJW/edit.
 
 ## Tecnologías
 
@@ -67,7 +67,7 @@ Ejecutar los scripts SQL en este orden sobre su servidor MySQL:
 1. **Script 1:** crea la base `dbadaptacionuniversitaria`, las tablas (`roles`, `usuarios`, `bitacoras`, `citas`) y los datos semilla (un usuario por rol).
 2. **Script 2 (opcional):** agrega usuarios, bitácoras y citas de prueba. Se ejecuta una sola vez, después del Script 1.
 
-Los scripts están en **[COMPLETAR: carpeta del repositorio, por ejemplo `/Database`]** y también en la sección 3.3 de la documentación.
+Los scripts están en la sección 3.3 de la documentación.
 
 ### 3. Configurar la cadena de conexión
 
@@ -92,12 +92,6 @@ dotnet run
 ```
 
 Por defecto la API queda en `https://localhost:44345` (el puerto puede cambiar según `launchSettings.json`).
-
-## Documentación de la API (Swagger)
-
-Con la API en ejecución, abrir `https://localhost:44345/swagger`.
-
-URL pública: **[COMPLETAR: URL de la API desplegada]**
 
 ## Ejemplos de uso
 
