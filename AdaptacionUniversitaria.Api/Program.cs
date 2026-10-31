@@ -1,9 +1,13 @@
 
+using AdaptacionUniversitaria.Api.Filters;
 using AdaptacionUniversitaria.Core.Interfaces;
 using AdaptacionUniversitaria.Infrastructure.Data;
 using AdaptacionUniversitaria.Infrastructure.Mappings;
 using AdaptacionUniversitaria.Infrastructure.Repositories;
+using AdaptacionUniversitaria.Services.Interfaces;
+using AdaptacionUniversitaria.Services.Services;
 using AdaptacionUniversitaria.Services.Validators.Bitacora;
+using AdaptacionUniversitaria.Services.Validators.Cita;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaptacionUniversitaria.Api
@@ -22,6 +26,8 @@ namespace AdaptacionUniversitaria.Api
 
             // Add services to the container.
             builder.Services.AddTransient<IBitacoraRepository, BitacoraRepository>();
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddTransient<ICitaService, CitaService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -33,8 +39,12 @@ namespace AdaptacionUniversitaria.Api
             builder.Services.AddScoped<BitacoraDtoValidator>();
             builder.Services.AddScoped<CrearBitacoraDtoValidator>();
             builder.Services.AddScoped<ActualizarBitacoraDtoValidator>();
+            builder.Services.AddScoped<CrearCitaDtoValidator>();
+            builder.Services.AddScoped<ResponderCitaDtoValidator>();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

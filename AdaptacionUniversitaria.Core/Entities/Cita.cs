@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AdaptacionUniversitaria.Core.Entities;
 
-public partial class Cita
+public partial class Cita : BaseEntity
 {
-    public int Id { get; set; }
-
     public int EstudianteId { get; set; }
 
     public int ConsejeroId { get; set; }

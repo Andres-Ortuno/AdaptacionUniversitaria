@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AdaptacionUniversitaria.Core.Entities;
 
-public partial class Usuario
+public partial class Usuario : BaseEntity
 {
-    public int Id { get; set; }
-
     public int RolId { get; set; }
 
     public string Nombres { get; set; } = null!;
