@@ -6,6 +6,8 @@ using AdaptacionUniversitaria.Core.DTOs.Reporteria;
 using AdaptacionUniversitaria.Services.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using AdaptacionUniversitaria.Core.CustomEntities;
+using AdaptacionUniversitaria.Core.DTOs.CustomEntitiesDto;
 
 namespace AdaptacionUniversitaria.Api.Controllers
 {
@@ -33,6 +35,22 @@ namespace AdaptacionUniversitaria.Api.Controllers
             var datos = await _reportesService.GetEstudiantesAnimoBajoAsync(usuarioId, dias, umbral);
             var dtos = _mapper.Map<IEnumerable<EstudianteAnimoDto>>(datos);
             return Ok(new ApiResponse<IEnumerable<EstudianteAnimoDto>>(dtos));
+        }
+
+        [HttpGet("dapper/cantidad-citas-por-estado")]
+        public async Task<IActionResult> GetCantidadCitasEstado()
+        {
+            var datos = await _reportesService.GetCantidadCitasEstadoAsyn();
+            var datosResult = _mapper.Map<IEnumerable<CantidadCitasEstadoDto>>(datos);
+            return Ok(new ApiResponse<IEnumerable<CantidadCitasEstadoDto>>(datosResult));
+        }
+
+        [HttpGet("dapper/promedio-animo-estudiante")]
+        public async Task<IActionResult> GetPromedioAnimoEstudiante()
+        {
+            var datos = await _reportesService.GetPromedioAnimoEstudiantesAsync();
+            var datosResult = _mapper.Map<IEnumerable<PromedioAnimoEstudianteDto>>(datos);
+            return Ok(new ApiResponse<IEnumerable<PromedioAnimoEstudianteDto>>(datosResult));
         }
     }
 }
