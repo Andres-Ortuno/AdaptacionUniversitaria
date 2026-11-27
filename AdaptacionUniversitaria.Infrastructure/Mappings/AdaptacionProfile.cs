@@ -1,8 +1,10 @@
+using AdaptacionUniversitaria.Core.CustomEntities;
+using AdaptacionUniversitaria.Core.CustomEntities.Reporteria;
 using AdaptacionUniversitaria.Core.DTOs;
+using AdaptacionUniversitaria.Core.DTOs.CustomEntitiesDto;
+using AdaptacionUniversitaria.Core.DTOs.Reporteria;
 using AdaptacionUniversitaria.Core.Entities;
 using AutoMapper;
-using AdaptacionUniversitaria.Core.CustomEntities.Reporteria;
-using AdaptacionUniversitaria.Core.DTOs.Reporteria;
 
 namespace AdaptacionUniversitaria.Infrastructure.Mappings
 {
@@ -25,6 +27,9 @@ namespace AdaptacionUniversitaria.Infrastructure.Mappings
             CreateMap<Usuario, UsuarioDto>();
             CreateMap<UsuarioCrearDto, Usuario>();
             CreateMap<UsuarioActualizarDto, Usuario>();
+
+            CreateMap<CantidadCitasEstado, CantidadCitasEstadoDto>();
+            CreateMap<PromedioAnimoEstudiante, PromedioAnimoEstudianteDto>();
         }
     }
 }
