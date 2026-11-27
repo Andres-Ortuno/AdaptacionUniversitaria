@@ -8,6 +8,7 @@ using AdaptacionUniversitaria.Services.Services;
 using AdaptacionUniversitaria.Services.Validators;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using AdaptacionUniversitaria.Api.Converters;
 
 namespace AdaptacionUniversitaria.Api
 {
@@ -36,11 +37,15 @@ namespace AdaptacionUniversitaria.Api
             builder.Services.AddScoped<IReportesService, ReportesService>();
             #endregion
 
-            builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
-            {
-                // Las validaciones las hace FluentValidation y las responde el middleware global
-                options.SuppressModelStateInvalidFilter = true;
-            });
+            builder.Services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new FechaDiaMesAnioConverter());
+                });
 
             // OpenAPI + interfaz Swagger
             builder.Services.AddOpenApi();
@@ -56,6 +61,8 @@ namespace AdaptacionUniversitaria.Api
                 options.AddDefaultPolicy(policy =>
                     policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
+
+
 
             var app = builder.Build();
 

@@ -6,6 +6,7 @@ using AdaptacionUniversitaria.Core.Interfaces;
 using AdaptacionUniversitaria.Core.QueryFilters;
 using AdaptacionUniversitaria.Services.Interfaces;
 using System.Net;
+using System.Globalization;
 
 namespace AdaptacionUniversitaria.Services.Services
 {
@@ -44,6 +45,29 @@ namespace AdaptacionUniversitaria.Services.Services
             var ahora = Procesos.AhoraBolivia();
             if (cita.FechaHora <= ahora)
                 throw new BusinessException("La fecha y hora de la cita deben ser posteriores al momento actual.");
+
+            // RN-N01 La cita debe ser para un día futuro
+            if (!HorarioAtencion.EsDiaFuturo(cita.FechaHora, ahora))
+                throw new BusinessException(
+                    "La cita debe solicitarse para un día futuro (a partir de mañana).",
+                    HttpStatusCode.BadRequest,
+                    new { fechaHoraSolicitada = cita.FechaHora, horarioPermitido = HorarioAtencion.Descripcion });
+
+            // El día debe ser de atención
+            if (!HorarioAtencion.EsDiaDeAtencion(cita.FechaHora))
+                throw new BusinessException(
+                    $"No se atiende los días {HorarioAtencion.NombreDia(cita.FechaHora.DayOfWeek)}. " +
+                    "Las citas se atienden de lunes a viernes.",
+                    HttpStatusCode.BadRequest,
+                    new { fechaHoraSolicitada = cita.FechaHora, horarioPermitido = HorarioAtencion.Descripcion });
+
+            // La hora debe estar dentro del horario
+            if (!HorarioAtencion.EstaEnHorario(cita.FechaHora))
+                throw new BusinessException(
+                    $"La hora solicitada ({cita.FechaHora.Hour:00}:{cita.FechaHora.Minute:00}) está fuera del horario de atención: " +
+                    $"de {HorarioAtencion.Apertura:HH\\:mm} a {HorarioAtencion.Cierre:HH\\:mm}.",
+                    HttpStatusCode.BadRequest,
+                    new { fechaHoraSolicitada = cita.FechaHora, horarioPermitido = HorarioAtencion.Descripcion });
 
             // RN-03: no puede tener más de una cita pendiente
             if (await _unitOfWork.CitaRepository.ExistePendienteAsync(estudiante.Id))
