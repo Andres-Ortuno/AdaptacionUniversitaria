@@ -1,0 +1,480 @@
+{
+  "info": {
+    "name": "Adaptación Universitaria API",
+    "description": "Colección para probar la API. Cada request manda el header X-Usuario-Id (no hay login): estudianteId=1, consejeroId=2 y adminId=3 son los usuarios semilla del Script 1.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5233"
+    },
+    {
+      "key": "estudianteId",
+      "value": "1"
+    },
+    {
+      "key": "consejeroId",
+      "value": "2"
+    },
+    {
+      "key": "adminId",
+      "value": "3"
+    }
+  ],
+  "item": [
+    {
+      "name": "Bitácora (CU-01, CU-02, CU-06)",
+      "item": [
+        {
+          "name": "CU-02 Registrar bitácora del día",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bitacora/dto/mapper",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bitacora",
+                "dto",
+                "mapper"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estadoAnimo\": 3,\n  \"sintomas\": \"Cansancio y falta de concentración\",\n  \"nota\": \"Semana de evaluaciones\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "CU-01 Historial propio (estudiante)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bitacora/dto/mapper?fechaDesde=2026-10-01&fechaHasta=2026-12-31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bitacora",
+                "dto",
+                "mapper"
+              ],
+              "query": [
+                {
+                  "key": "fechaDesde",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "fechaHasta",
+                  "value": "2026-12-31"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "CU-01 Historial de un estudiante (consejero, RN-10)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{consejeroId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bitacora/dto/mapper?estudianteId=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bitacora",
+                "dto",
+                "mapper"
+              ],
+              "query": [
+                {
+                  "key": "estudianteId",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "CU-06 Editar bitácora del día",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bitacora/dto/mapper/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bitacora",
+                "dto",
+                "mapper",
+                "1"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estadoAnimo\": 4,\n  \"sintomas\": \"Menos cansancio\",\n  \"nota\": \"Mejoré durante la tarde\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Citas (CU-03, CU-04, CU-05, CU-07)",
+      "item": [
+        {
+          "name": "CU-03 Listar consejeros",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/consejeros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "consejeros"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "CU-03 Solicitar cita",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consejeroId\": 2,\n  \"fechaHora\": \"2026-12-10T15:00:00\",\n  \"motivo\": \"Orientación para organizar mi tiempo de estudio\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Listar mis citas (estudiante)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Listar citas pendientes asignadas (consejero)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{consejeroId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas?estado=Pendiente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Pendiente"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "CU-04 Aprobar cita",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{consejeroId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas/1/aprobar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas",
+                "1",
+                "aprobar"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "CU-05 Rechazar cita",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{consejeroId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas/1/rechazar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas",
+                "1",
+                "rechazar"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivoRechazo\": \"Horario no disponible\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "CU-07 Cancelar cita pendiente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{estudianteId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/citas/1/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "citas",
+                "1",
+                "cancelar"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios (CU-08)",
+      "item": [
+        {
+          "name": "Listar usuarios",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{adminId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{adminId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rolId\": 1,\n  \"nombres\": \"Ana\",\n  \"apellidos\": \"Pérez Gómez\",\n  \"email\": \"ana.perez@ucb.test\",\n  \"password\": \"Temporal123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Editar / desactivar usuario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-Usuario-Id",
+                "value": "{{adminId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "4"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rolId\": 1,\n  \"nombres\": \"Ana\",\n  \"apellidos\": \"Pérez Gómez\",\n  \"email\": \"ana.perez@ucb.test\",\n  \"activo\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

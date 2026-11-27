@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AdaptacionUniversitaria.Api/AdaptacionUniversitaria.Api.csproj" />
+  <Project Path="AdaptacionUniversitaria.Core/AdaptacionUniversitaria.Core.csproj" />
+  <Project Path="AdaptacionUniversitaria.Infrastructure/AdaptacionUniversitaria.Infrastructure.csproj" />
+  <Project Path="AdaptacionUniversitaria.Services/AdaptacionUniversitaria.Services.csproj" />
+</Solution>
