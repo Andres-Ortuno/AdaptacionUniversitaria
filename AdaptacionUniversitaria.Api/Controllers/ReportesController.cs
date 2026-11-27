@@ -52,5 +52,13 @@ namespace AdaptacionUniversitaria.Api.Controllers
             var datosResult = _mapper.Map<IEnumerable<PromedioAnimoEstudianteDto>>(datos);
             return Ok(new ApiResponse<IEnumerable<PromedioAnimoEstudianteDto>>(datosResult));
         }
+
+        [HttpGet("dapper/estudiante-animo-bajo-sin-cita")]
+        public async Task<IActionResult> GetEstudianteAnimoBajoSinCita()
+        {
+            var datos = await _reportesService.GetEstudianteAnimoBajoSinCitasAsync();
+            var datosResult = _mapper.Map<IEnumerable<EstudianteAnimoBajoSinCitaDto>>(datos);
+            return Ok(new ApiResponse<IEnumerable<EstudianteAnimoBajoSinCitaDto>>(datosResult));
+        }
     }
 }

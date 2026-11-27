@@ -30,6 +30,19 @@ namespace AdaptacionUniversitaria.Infrastructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<EstudianteAnimoBajoSinCita>> GetEstudianteAnimoBajoSinCitasAsync()
+        {
+            try
+            {
+                return await _dapper.QueryAsync<EstudianteAnimoBajoSinCita>(
+                    ReportesQueries.estudianteAnimoBajoSinCitaMySql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<IEnumerable<EstudianteAnimo>> GetEstudiantesAnimoBajoAsync(
             int consejeroId, DateTime desde, decimal umbral)
         {

@@ -30,6 +30,7 @@ namespace AdaptacionUniversitaria.Infrastructure.Mappings
 
             CreateMap<CantidadCitasEstado, CantidadCitasEstadoDto>();
             CreateMap<PromedioAnimoEstudiante, PromedioAnimoEstudianteDto>();
+            CreateMap<EstudianteAnimoBajoSinCita, EstudianteAnimoBajoSinCitaDto>(); 
         }
     }
 }

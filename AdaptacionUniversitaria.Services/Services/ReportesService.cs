@@ -20,6 +20,11 @@ namespace AdaptacionUniversitaria.Services.Services
             return await _unitOfWork.ReportesRepository.GetCantidadCitasEstadoAsync();
         }
 
+        public async Task<IEnumerable<EstudianteAnimoBajoSinCita>> GetEstudianteAnimoBajoSinCitasAsync()
+        {
+            return await _unitOfWork.ReportesRepository.GetEstudianteAnimoBajoSinCitasAsync();
+        }
+
         public async Task<IEnumerable<EstudianteAnimo>> GetEstudiantesAnimoBajoAsync(
             int usuarioId, int dias, decimal umbral)
         {

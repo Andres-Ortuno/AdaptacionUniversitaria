@@ -13,5 +13,6 @@ namespace AdaptacionUniversitaria.Services.Interfaces
 
         Task<IEnumerable<CantidadCitasEstado>> GetCantidadCitasEstadoAsyn();
         Task<IEnumerable<PromedioAnimoEstudiante>> GetPromedioAnimoEstudiantesAsync();
+        Task<IEnumerable<EstudianteAnimoBajoSinCita>> GetEstudianteAnimoBajoSinCitasAsync();
     }
 }
